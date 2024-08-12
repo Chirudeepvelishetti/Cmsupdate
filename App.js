@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './Screens/Home';
+import Scanner from './Screens/Scanner'
+import Complaint from './Screens/Complaint';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Formm from './Forms/Formm';
+import Scannerform from './Forms/Scannerform';
+
+import Page2 from './Forms/Page2';
+import Page3 from './Forms/Page3';
+import Page4 from './Forms/Page4';
+import Page5 from './Forms/Page5';
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <NavigationContainer>
+    <Stack.Navigator>
+    <Stack.Screen name='home' component={Home} options={{headerShown:false}}/>
+    <Stack.Screen name='complaint' component={Complaint} options={{headerShown:false}}/>
+    <Stack.Screen name='scan' component={Scanner} options={{headerShown:false}}/>
+   <Stack.Screen name='form' component={Formm} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='sform' component={Scannerform} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='form2' component={Page2} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='form3' component={Page3} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='form4' component={Page4} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='form5' component={Page5} options={{headerShown:false}}></Stack.Screen>
+    </Stack.Navigator>
+   </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
