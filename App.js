@@ -15,6 +15,7 @@ import Page5 from './Forms/Page5';
 import { AppProvider } from './Forms/AppContext';
 import Submit from './Forms/Submit';
 import Track from './Screens/Track';
+import Page1 from './Forms/Page1';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
    <Stack.Screen name='form5' component={Page5} options={{headerShown:false}}></Stack.Screen>
    <Stack.Screen name='last' component={Submit} options={{headerShown:false}}></Stack.Screen>
    <Stack.Screen name='track' component={Track} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='form1' component={Page1} options={{headerShown:false}}></Stack.Screen>
 
     </Stack.Navigator>
     </AppProvider>

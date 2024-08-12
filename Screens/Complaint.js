@@ -71,7 +71,7 @@ export default function Complaint() {
           </TouchableOpacity>
         </Animatable.View>
         <Animatable.View style={{paddingTop:30}}   animation={animate ? 'flipInX' : undefined} duration={1000}>
-        <TouchableOpacity onPress={()=> navigation.navigate('form')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('form1')}>
         <Text style={styles.complainttext1}>Register Your Complaint Manually Here</Text>
         </TouchableOpacity>
       </Animatable.View>
