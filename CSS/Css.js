@@ -63,6 +63,27 @@ const styles = StyleSheet.create({
         left:width*0.12
 
     },
+    complaint1:{
+        paddingTop:width*0.03,
+        // paddingBottom:width,
+        position:'absolute',
+        
+        left:width*0.12,
+        paddingTop:width*0.30
+
+    },
+    tracktext:{
+       fontSize:width*0.05,
+       fontWeight:'500',
+        backgroundColor:'white',
+        textAlign:'center',
+        padding:width*0.03,
+        marginHorizontal:width*0.05,
+        color:'#264782',
+        borderRadius:20,
+        paddingHorizontal:width*0.08
+        
+    },
     bottomSheetBackground: {
     backgroundColor: 'white', 
     borderTopLeftRadius: 50, 

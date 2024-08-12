@@ -38,7 +38,11 @@ export default function Complaint() {
     <View style={styles.sliderbg}>
     <Animatable.Image animation='fadeInRight'  duration={3000} source={require('../assets/image1.png')} style={styles.sliderimage} />
     </View>
-    
+    <View >
+        <TouchableOpacity style={styles.complaint1} onPress={()=>navigation.navigate('track')}>
+          <Text style={styles.tracktext} >Track Your Complaint</Text>
+        </TouchableOpacity>
+      </View>
     
       <TouchableOpacity
         onPress={handleOpenBottomSheet}
@@ -46,7 +50,7 @@ export default function Complaint() {
       >
         <Text style={styles.complainttext}>Register Your Complaint +</Text>
       </TouchableOpacity>
-
+      
       <View style={styles.footer}>
       <Text style={styles.hometext3} onPress={() => { Linking.openURL('https://www.ridhitek.com') }}>@ Powered By <Text style={{ color: 'green' }}>Ridhitek</Text></Text>
      </View>
