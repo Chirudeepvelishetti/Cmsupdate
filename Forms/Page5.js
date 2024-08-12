@@ -1,83 +1,126 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, Dimensions, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { useAppContext } from './AppContext';
+import Header from '../Screens/Header';
+import { useNavigation } from '@react-navigation/native';
 
-const Form5Component = () => {
-  const route = useRoute();
-  const params = route.params || {};
+const { width } = Dimensions.get('window');
 
-  const {
-    shopname = 'N/A',
-    district = 'N/A',
-    mandal = 'N/A',
-    village = 'N/A',
-    pincode = 'N/A',
-    imageUri = 'No image selected',
-    audioUri = 'No audio recorded',
-    text = 'N/A',
-    complaintType = 'N/A',
-    firstName = 'N/A',
-    lastName = 'N/A',
-    phone = 'N/A',
-    email = 'N/A',
-    address = 'N/A',
-  } = params;
+export default function Page5() {
+  const { formData } = useAppContext();
+  const navigation = useNavigation();
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Review Your Details</Text>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Shop Details</Text>
-        <Text style={styles.field}>Shop Name: {shopname}</Text>
-        <Text style={styles.field}>District: {district}</Text>
-        <Text style={styles.field}>Mandal: {mandal}</Text>
-        <Text style={styles.field}>Village: {village}</Text>
-        <Text style={styles.field}>Pincode: {pincode}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Attachments</Text>
-        <Text style={styles.field}>Image: {imageUri}</Text>
-        <Text style={styles.field}>Audio: {audioUri}</Text>
-        <Text style={styles.field}>Text: {text}</Text>
-        <Text style={styles.field}>Complaint Type: {complaintType}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Personal Details</Text>
-        <Text style={styles.field}>First Name: {firstName}</Text>
-        <Text style={styles.field}>Last Name: {lastName}</Text>
-        <Text style={styles.field}>Phone: {phone}</Text>
-        <Text style={styles.field}>Email: {email}</Text>
-        <Text style={styles.field}>Address: {address}</Text>
-      </View>
-    </ScrollView>
+    <View style={styles.mainContainer}>
+      <Header />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Review Details</Text>
+          <View style={styles.cont1}>
+            <Text style={styles.title}>Shop Details</Text>
+            <Text style={styles.text}>Shop Name: {formData.shopname}</Text>
+            <Text style={styles.text}>District: {formData.district}</Text>
+            <Text style={styles.text}>Mandal: {formData.mandal}</Text>
+            <Text style={styles.text}>Village: {formData.village}</Text>
+            <Text style={styles.text}>Pincode: {formData.pincode}</Text>
+          </View>
+          <View style={styles.cont1}>
+            <Text style={styles.title}>Personal Details</Text>
+            <Text style={styles.text}>First Name: {formData.firstName}</Text>
+            <Text style={styles.text}>Last Name: {formData.lastName}</Text>
+            <Text style={styles.text}>Phone: {formData.phone}</Text>
+            <Text style={styles.text}>Email: {formData.email}</Text>
+            <Text style={styles.text}>Address: {formData.address}</Text>
+          </View>
+          <View style={styles.cont1}>
+            <Text style={styles.title}>Complaint Details</Text>
+            <Text style={styles.text}>Complaint Text: {formData.complaintText}</Text>
+            <Text style={styles.text}>Complaint Type: {formData.complaintType}</Text>
+            {formData.recordedURI && (
+              <Text style={styles.detail}>Audio URI: {formData.recordedURI}</Text>
+            )}
+          </View>
+          <View style={styles.cont1}>
+            <Text style={styles.title}>Attachments</Text>
+            {formData.imageUri && (
+              <Image
+                source={{ uri: formData.imageUri }}
+                style={styles.image}
+              />
+            )}
+          </View>
+          <View style={styles.btnview}>
+          <View>
+          <TouchableOpacity>
+                  <Text style={styles.btntext}>Back</Text>
+              </TouchableOpacity>
+          </View>
+          <View>
+          <TouchableOpacity>
+                  <Text style={styles.btntext} onPress={()=>navigation.navigate('last')}>Finish</Text>
+              </TouchableOpacity>
+          </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    padding: 16,
+    
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    padding: width * 0.05,
+    backgroundColor: 'white',
+    elevation: 20,
+    marginHorizontal: width * 0.05,
+    marginVertical: width * 0.03,
+    borderRadius: 10,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    fontSize: width * 0.05,
+    marginBottom: width * 0.03,
+    paddingLeft: width * 0.04,
   },
-  section: {
-    marginBottom: 16,
+  image: {
+    width: width * 0.25,
+    height: width * 0.25,
+    alignSelf: 'start',
+    borderRadius: 10,
+    marginTop: width * 0.02,
+    marginLeft: width * 0.05,
+    marginBottom: width * 0.03,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  text: {
+    fontSize: width * 0.042,
+    paddingLeft: width * 0.04,
+    paddingBottom: width * 0.02,
   },
-  field: {
-    fontSize: 16,
-    marginBottom: 4,
+  cont1: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 20,
+    marginBottom: width * 0.03,
   },
+  btntext:{
+    fontSize:width*0.05,
+    paddingHorizontal:width*0.05,
+    paddingVertical:width*0.02,
+    borderWidth:1,
+    textAlign:'center',
+    borderRadius:20,
+    elevation:20,
+    backgroundColor:'whitesmoke'
+  },
+  btnview:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    
+  }
 });
-
-export default Form5Component;

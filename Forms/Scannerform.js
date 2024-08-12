@@ -3,13 +3,20 @@ import { View, Text, StyleSheet ,Dimensions,TouchableOpacity} from 'react-native
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Header from '../Screens/Header';
 import { Provider as PaperProvider, TextInput as PaperInput } from 'react-native-paper';
+import { useAppContext } from './AppContext';
 const { width } = Dimensions.get('window');
 export default function Scannerform () {
   const route = useRoute();
-  const { data } = route.params;
   const navigation = useNavigation();
-  
-  const shopData = JSON.parse(data);
+  const { setFormData } = useAppContext();
+
+  // Parse data only once when the component mounts
+  const shopData = React.useMemo(() => JSON.parse(route.params.data), [route.params.data]);
+ 
+  React.useEffect(() => {
+    setFormData(prevData => ({ ...prevData, ...shopData }));
+  }, [setFormData, shopData]); 
+
   return (
     <View>
     <Header />
@@ -64,7 +71,7 @@ export default function Scannerform () {
       />
         </View>
         <View style={styles.buttonview}>
-            <TouchableOpacity onPress={() => navigation.navigate('form3',{ shopData })}>
+            <TouchableOpacity onPress={() => navigation.navigate('form3')}>
               <Text style={styles.buttontext}>NEXT</Text>
             </TouchableOpacity>
           </View>

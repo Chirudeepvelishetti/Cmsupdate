@@ -4,12 +4,13 @@ import { View, Text, StyleSheet,Dimensions, KeyboardAvoidingView,ScrollView,Plat
 import Feather from 'react-native-vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker';
 import Header from '../Screens/Header';
+import { useAppContext } from './AppContext';
 const { width, height } = Dimensions.get('window');
 export default function Page2({ navigation }) {
   
 
   const [imageUri, setImageUri] = useState(null);
-
+  const { setFormData } = useAppContext()
   const handleImage = async () => {
     let imagePick = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -19,7 +20,9 @@ export default function Page2({ navigation }) {
     });
     console.log(imagePick);
     if (!imagePick.canceled && Array.isArray(imagePick.assets) && imagePick.assets.length > 0) {
-      setImageUri(imagePick.assets[0].uri);
+      const uri = imagePick.assets[0].uri;
+      setImageUri(uri);
+      setFormData(prevData => ({ ...prevData, imageUri: uri })); 
     } else {
       console.log('Image selection was canceled or no image assets found.');
     }
@@ -34,7 +37,9 @@ export default function Page2({ navigation }) {
     });
     console.log(cam);
     if (!cam.canceled && Array.isArray(cam.assets) && cam.assets.length > 0) {
-      setImageUri(cam.assets[0].uri);
+      const uri = cam.assets[0].uri; // Define 'uri' here
+        setImageUri(uri);
+        setFormData(prevData => ({ ...prevData, imageUri: uri }));
     } else {
       console.log('Image not uploaded');
     }

@@ -12,10 +12,14 @@ import Page2 from './Forms/Page2';
 import Page3 from './Forms/Page3';
 import Page4 from './Forms/Page4';
 import Page5 from './Forms/Page5';
+import { AppProvider } from './Forms/AppContext';
+import Submit from './Forms/Submit';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
+
    <NavigationContainer>
+   <AppProvider>
     <Stack.Navigator>
     <Stack.Screen name='home' component={Home} options={{headerShown:false}}/>
     <Stack.Screen name='complaint' component={Complaint} options={{headerShown:false}}/>
@@ -26,7 +30,10 @@ export default function App() {
    <Stack.Screen name='form3' component={Page3} options={{headerShown:false}}></Stack.Screen>
    <Stack.Screen name='form4' component={Page4} options={{headerShown:false}}></Stack.Screen>
    <Stack.Screen name='form5' component={Page5} options={{headerShown:false}}></Stack.Screen>
+   <Stack.Screen name='last' component={Submit} options={{headerShown:false}}></Stack.Screen>
     </Stack.Navigator>
+    </AppProvider>
    </NavigationContainer>
+
   );
 }

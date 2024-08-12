@@ -3,15 +3,17 @@ import { Audio } from 'expo-av';
 import { RadioButton } from 'react-native-paper';
 import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, ScrollView, Platform, TextInput, TouchableOpacity, Image, Alert, Linking } from 'react-native';
 import Header from '../Screens/Header';
+import { useAppContext } from './AppContext';
 const { width, height } = Dimensions.get('window');
-export default function Page4({ navigation }) {
+export default function Page3({ navigation }) {
+   
     const [recording, setRecording] = useState(null);
     const [recordedURI, setRecordedURI] = useState(null);
     const [sound, setSound] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [text, setText] = useState('');
     const [complaintType, setComplaintType] = useState('');
-
+    const { setFormData } = useAppContext();
     useEffect(() => {
         (async () => {
             await Audio.requestPermissionsAsync();
@@ -86,20 +88,14 @@ export default function Page4({ navigation }) {
     };
 
     const submit = () => {
-        Alert.alert(
-            'Submitted',
-            'Your Complaint has been successfully submitted!',
-            [{
-                text: 'OK', onPress: () => {
-                    setTimeout(() => {
-
-                        navigation.navigate('home');
-                    }, 100);
-                }
-            }],
-            { cancelable: false }
-        );
-    }
+        setFormData(prevData => ({
+          ...prevData,
+          complaintText: text,
+          complaintType: complaintType,
+          recordedURI: recordedURI,
+        }));
+        navigation.navigate('form2');
+      }
 
     return (
         <View style={{ flex: 1 }}>
@@ -131,19 +127,19 @@ export default function Page4({ navigation }) {
                     <Text style={styles.radioButtonTitle}>Select Complaint Type:</Text>
                     <RadioButton.Group onValueChange={value => setComplaintType(value)} value={complaintType}>
                         <View style={styles.radioButtonRow}>
-                            <RadioButton value="type1" />
+                            <RadioButton value="A4Shop Violation" />
                             <Text>A4Shop Violation</Text>
                         </View>
                         <View style={styles.radioButtonRow}>
-                            <RadioButton value="type2" />
+                            <RadioButton value="Toddy Adulteration" />
                             <Text> Toddy Adulteration </Text>
                         </View>
                         <View style={styles.radioButtonRow}>
-                            <RadioButton value="type3" />
+                            <RadioButton value="Defence Liquor" />
                             <Text>Defence Liquor</Text>
                         </View>
                         <View style={styles.radioButtonRow}>
-                            <RadioButton value="type3" />
+                            <RadioButton value="Excise Personnel" />
                             <Text>Excise Personnel </Text>
                         </View>
                     </RadioButton.Group>
@@ -168,7 +164,7 @@ export default function Page4({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <TouchableOpacity onPress={() => navigation.navigate('form2')}>
+                        <TouchableOpacity onPress={submit}>
                             <Text style={styles.buttontext}>Next</Text>
                         </TouchableOpacity>
                     </View>

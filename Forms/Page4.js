@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity, KeyboardAvoidingV
 import Header from '../Screens/Header';
 import { Provider as PaperProvider, TextInput as PaperInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native'; 
-
+import { useAppContext } from './AppContext'; 
 const { width, height } = Dimensions.get('window');
 
 export default function Page4() {
   const navigation = useNavigation(); 
-
+  const { setFormData } = useAppContext();
   // State for form fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -55,6 +55,14 @@ export default function Page4() {
   // Handle next button click
   const handleNext = () => {
     if (validate()) {
+      setFormData(prevData => ({
+        ...prevData,
+        firstName,
+        lastName,
+        phone,
+        email,
+        address,
+    }));
         navigation.navigate('form5');
     }
   };
@@ -79,8 +87,8 @@ export default function Page4() {
                 onChangeText={text => setFirstName(text)}
                 mode="outlined"
                 style={styles.input}
-                error={!!errors.firstName}
-                helperText={errors.firstName}
+                // error={!!errors.firstName}
+                // helperText={errors.firstName}
               />
             </View>
             <View style={styles.inputview}>
@@ -90,8 +98,8 @@ export default function Page4() {
                 onChangeText={text => setLastName(text)}
                 mode="outlined"
                 style={styles.input}
-                error={!!errors.lastName}
-                helperText={errors.lastName}
+                // error={!!errors.lastName}
+                // helperText={errors.lastName}
               />
             </View>
             <View style={styles.inputview}>
@@ -102,8 +110,8 @@ export default function Page4() {
                 mode="outlined"
                 style={styles.input}
                 keyboardType="numeric"
-                error={!!errors.phone}
-                helperText={errors.phone}
+                // error={!!errors.phone}
+                // helperText={errors.phone}
               />
             </View>
             <View style={styles.inputview}>
@@ -113,8 +121,8 @@ export default function Page4() {
                 onChangeText={text => setEmail(text)}
                 mode="outlined"
                 style={styles.input}
-                error={!!errors.email}
-                helperText={errors.email}
+                // error={!!errors.email}
+                // helperText={errors.email}
               />
             </View>
             <View style={styles.inputview}>
@@ -124,8 +132,8 @@ export default function Page4() {
                 onChangeText={text => setAddress(text)}
                 mode="outlined"
                 style={styles.input}
-                error={!!errors.address}
-                helperText={errors.address}
+                // error={!!errors.address}
+                // helperText={errors.address}
               />
             </View>
             <View style={styles.buttonview}>
